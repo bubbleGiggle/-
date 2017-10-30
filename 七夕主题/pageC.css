@@ -1,0 +1,143 @@
+@charset "utf-8";
+/* CSS Document */
+.c_background{
+	width:100%;
+	height:100%;}
+.c_background_top{
+	width:100%;
+	height:71.6%;
+	background:url(images/background/c_background_top.png);
+	background-size:100% 100%;}
+.c_background_middle{
+	width:100%;
+	height:13.1%;
+	background:url(images/background/c_background_middle.png);
+	background-size:100% 100%;}
+
+.c_background_bottom{
+	width:100%;
+	height:15.3%;
+	background:url(images/background/c_background_botton.png);
+	background-size:100% 100%;}
+	
+.girl{
+	background:url(images/girl.png) -755px 0px no-repeat;
+	width:151px;
+	height:291px;
+	position:absolute;
+	right:13.33%;
+	top:37%;}
+.bridge-bottom{
+	width: 41%;
+	height: 24%;
+	position: absolute;
+	left:69%;
+	top: 76%;
+}
+.water{
+	width:100%;
+	height:100%;}
+#water1,#water2,#water3,#water4{
+	width:100%;
+	height:50%;
+	position:absolute;
+	-webkit-animation-name:flow;
+	-webkit-animation-duration:50s;
+	-webkit-animation-direction:alternate;
+	-webkit-animation-timing-function:linear;
+	-webkit-animation-iteration-count:infinite;
+	-moz-animation-name:flow;
+	-moz-animation-duration:50s;
+	-moz-animation-direction:alternate;
+	-moz-animation-timing-function:linear;
+	-moz-animation-iteration-count:infinite;}
+@-webkit-keyframes flow{
+	0%,100%{-webkit-transform:translate3d(0,0,0);}
+	10%,30%,50%,70%,90%{-webkit-transform:translate3d(-30px,0,0);}
+	20%,40%,60%,80%{-webkit-transform:translate3d(30px,0,0);}}
+@-moz-keyframes flow{
+	0%,100%{-webkit-transform:translate3d(0,0,0);}
+	10%,30%,50%,70%,90%{-webkit-transform:translate3d(-30px,0,0);}
+	20%,40%,60%,80%{-webkit-transform:translate3d(30px,0,0);}}
+#water1{
+	background:url(images/water.png) -261px 0px no-repeat;
+	width:131px;
+	height:15px;
+	top:13%;
+	left:35%;}
+#water2{
+	background:url(images/water.png) -693px 0px no-repeat;
+	width:161px;
+	height:9px;
+	top:30%;
+	left:45%;}
+#water3{
+	background:url(images/water.png) 0px 0px no-repeat;
+	width:261px;
+	height:29px;
+	top:50%;
+	left:15%;}
+#water4{
+	background:url(images/water.png) -392px 0px no-repeat;
+	width:301px;
+	height:12px;
+	top:75%;
+	left:30%;}
+	
+.logo{
+	display:none;
+	width:185px;
+	height:81px;
+	background-image:url(images/logo.png);
+	position:absolute;
+	left:80%;
+	top:30px;}
+.logoIn{
+	display:block;
+	-webkit-animation-name:logoIn;
+	-webkit-animation-timing-function:ease-out;
+	-webkit-animation-duration:1s;
+	-moz-animation-name:logoIn;
+	-moz-animation-timing-function:ease-out;
+	-moz-animation-duration:1s;}
+@-webkit-keyframes logoIn{
+	0%{-webkit-transform:translate3d(100%,0,0) skewX(-30deg);opacity:0;}
+	60%{-webkit-transform: skewX(20deg);opacity:1;}
+	80%{-webkit-transform: skewX(-5deg);opacity:1;}
+	60%{-webkit-transform: none;opacity:1;}}
+@-moz-keyframes logoIn{
+	0%{-webkit-transform:translate3d(100%,0,0) skewX(-30deg);opacity:0;}
+	60%{-webkit-transform: skewX(20deg);opacity:1;}
+	80%{-webkit-transform: skewX(-5deg);opacity:1;}
+	60%{-webkit-transform: none;opacity:1;}}
+.logoshake{
+	-webkit-animation-name:logoshake;
+	-webkit-animation-duration:0.5s;
+	-moz-animation-name:logoshake;
+	-moz-animation-duration:0.5s;}
+@-webkit-keyframes logoshake{
+	0%,100%{-webkit-transform:translate3d(0,0,0);}
+	10%,30%,50%,70%,90%{-webkit-transform:translate3d(-5px,0,0);}
+	20%,40%,60%,80%,100%{-webkit-transform:translate3d(10px,0,0);}}
+@-moz-keyframes logoshake{
+	0%,100%{-webkit-transform:translate3d(0,0,0);}
+	10%,30%,50%,70%,90%{-webkit-transform:translate3d(-5px,0,0);}
+	20%,40%,60%,80%,100%{-webkit-transform:translate3d(10px,0,0);}}
+	
+/*花瓣*/
+#petal{
+	width:100%;
+	height:100%;
+	position:absolute;
+	left:0;
+	top:0;}
+.petalRoll{
+	position:absolute;
+	opacity:0;
+	height:80px;
+	-webkit-animation-name:petalFalling;
+	-webkit-animation-duration:20s;
+	-moz-animation-name:petalFalling;
+	-moz-animation-duration:20s;}
+@-webkit-keyframes petalfalling{
+	0%{bottom:100%;}}

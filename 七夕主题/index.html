@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>七夕</title>
+<link rel="stylesheet" href="Untitled-1.css" />
+<link rel="stylesheet" href="pageB.css" />
+<link rel="stylesheet" href="pageC.css" />
+<script src="../jquery-2.1.4.min.js"></script>
+<!--插件jquery.transit-->
+<script type="text/javascript" src="http://img.mukewang.com/down/55ac9ea30001ace700000000.js"></script>
+<script type="text/javascript" src="swipe.js"></script>
+
+<style type="text/css">
+ul, li{
+	margin:0;
+	padding:0;
+	list-style:none;}
+
+html,body{
+	height:100%;}
+#content{
+	width:100%;
+	height:100%;
+	border:1px solid #F00;
+	overflow:hidden;}
+	.content-wrap{
+		height:100%;}
+	.content-wrap li{
+		height:100%;
+		float:left;}
+		
+		li:nth-child(2){
+			background:#0F0;}
+			li:nth-child(3){}
+				
+				.character{
+					width:151px;
+					height:291px;
+					background:url(images/boy.png) -0px -291px no-repeat;
+					position:absolute;
+					left:6%;
+					top:55%;}
+
+</style>
+</head>
+
+<body>
+<div class="button">
+  <button>点击切换页面</button>
+</div>
+<div id="sun"></div>
+<div class="cloudArea">
+  <div class="cloud1"></div>
+  <div class="cloud2"></div>
+</div>
+
+<div id="content">
+  <ul class="content-wrap">
+<!--  第一幅画面-->
+    <li>
+      <div class="a_background">
+        <div class="a_background_top"></div>
+        <div class="a_background_middle"></div>
+        <div class="a_background_bottom"></div>
+      </div>
+    </li>
+    <!--第二幅画面-->
+    <li>
+      <div class="b_background"></div>
+      <div class="b_background_preload"></div>
+      <div class="shop">
+        <div class="door">
+          <div class="door-left"></div>
+          <div class="door-right"></div>       
+        </div>
+        <div class="bird"></div>
+        <div class="lamp"></div>
+      </div>
+    </li>
+    <li>
+      <div class="c_background">
+        <div class="c_background_top"></div>
+        <div class="c_background_middle"></div>
+        <div class="c_background_bottom"></div>
+      </div>    
+      <div class="girl"></div>
+      <div class="bridge-bottom">
+      	<div class="water">
+        	<div id="water1"></div>
+            <div id="water2"></div>
+            <div id="water3"></div>
+            <div id="water4"></div>
+        </div>
+      </div>
+      
+      <!--以下代码会影响布局，不知道为啥-->
+<!--      <ul class="stars" >
+      	<li class="star1"></li>
+        <li class="star2"></li>
+        <li class="star3"></li>
+        <li class="star4"></li>
+        <li class="star5"></li>
+        <li class="star6"></li>
+      </ul>-->
+      
+      <div class="logo"></div>
+    </li>
+  </ul>
+  <div id="petal"></div>
+  <div id="boy" class="character"></div>
+</div>
+
+<script type="text/javascript" src="BoyWalk.js"></script>
+<script type="text/javascript">
+$(function(){
+	var container=$("#content");
+	visualWidth=container.width();
+	visualHeight=container.height();
+	var swipe=Swipe(container);
+	
+	function scrollTo(time,proportion){
+		var distX=container.width()*proportion;
+		swipe.scrollTo(distX,time);}
+	swipe.scrollTo(container.width()*2,0);
+	
+	function doorAction(left,right,time){
+		var defer=$.Deferred();
+		var $door=$('.door');
+		var doorLeft=$('.door-left');
+		var doorRight=$('.door-right');
+		var count=2;
+		var complete=function(){
+			if(count==1){
+				defer.resolve();return;}
+				count--;
+				};
+		doorLeft.transition({'left':left},time,complete);
+		doorRight.transition({'left':right},time,complete);
+		return defer;
+		}
+		
+	function openDoor(){
+		return doorAction('-50%','100%',2000);}
+	function shutDoor(){
+		return doorAction('0%','50%',2000);}
+
+	var bird={
+		elem:$('.bird'),
+		fly:function(){
+			this.elem.addClass('birdFly');
+			this.elem.transition({right:container.width()},15000,'linear');}
+		};
+		
+	var lamp={
+		elem:$('.b_background'),
+		bright:function(){this.elem.addClass('lamp-bright');},
+		dark:function(){this.elem.removeClass('lamp-bright');}};
+	
+	//openDoor().then(function(){lamp.bright();});
+	//shutDoor().then(function(){lamp.dark();});
+
+  var getValue=function(classname){
+	  var $elem=$(classname);
+	  return{
+		  height:$elem.height(),
+		  top:$elem.position().top
+		  };
+	  };
+
+	var bridgeY=function(){
+		var data=getValue('.c_background_middle');
+		return data.top;
+		}();
+
+	var girl={
+		elem:$('.girl'),
+		getHeight:function(){return this.elem.height();},
+		rotate:function(){this.elem.addClass('girl-rotate');},
+		setOffset:function(){
+			this.elem.css({
+				//left:visualWidth/2,
+				top:bridgeY-this.elem.height()});},
+		getOffset:function(){return this.elem.offset();},
+		getWidth:function(){return this.elem.width();}
+		};
+	girl.setOffset();
+	
+	var logo={
+		elem:$('.logo'),
+		run:function(){
+			this.elem.addClass('logoIn').on('webkitAnimationEnd',function(){$(this).addClass('logoshake').off();});}
+		};	
+		
+	$(function(){
+		var petalUrl=['images/snowflake/snowflake1.png','images/snowflake/snowflake2.png',
+		'images/snowflake/snowflake3.png','images/snowflake/snowflake4.png',
+		'images/snowflake/snowflake5.png','images/snowflake/snowflake6.png'];
+		function petalFalling(){
+			var petalContainer=$('#petal');
+			function getImageName(){
+				return petalUrl[[Math.floor(Math.random()*6)]];}
+			
+			function createPetal(){
+				var url=getImageName();
+				return $('<div class="petalBox"/>').css({
+					'width':41,'height':41,'position':'absolute',
+					'backgroundSiza':'cover','zIndex':99999,'top':'-41px',
+					'backgroundImage':'url('+url+')'}).addClass('petalRoll');
+				}
+			setInterval(function(){
+				var startPositionLeft=Math.random()*visualWidth-100,
+				startOpacity=1,
+				endPositionTop=visualHeight-40,
+				endPositionLeft=startPositionLeft-100+Math.random()*500,
+				duration=visualHeight*10+Math.random()*5000;
+				
+				var randomStart=Math.random();
+				randomStart=randomStart<0.5?startOpacity:randomStart;
+				
+				var petal=creatPetel();
+				petal.css({
+					left:startPositionLeft,
+					opacity:randomStart});
+				petalContainer.append(petal);
+				
+				petal.transition({top:endPositionTop,left:endPositionLeft,opacity:0.7},duration,'ease-out',function(){$(this).remove();});
+				
+				},200);
+			
+			}
+		});
+	
+	function petalFalling(){
+		}
+	
+	var boy=BoyWalk();
+	$(".button").click(function(){
+		$("#sun").addClass('rotation');
+		$(".cloud1").addClass('cloud1Anim');
+		$(".cloud2").addClass('cloud2Anim');
+		
+		boy.walkTo(2000,0.5)
+		.then(function(){return boy.walkTo(1500,0.25,(bridgeY-girl.getHeight())/visualHeight)})
+		.then(function(){
+			var proportionX=(girl.getOffset().left-boy.getWidth()+girl.getWidth()/5)/visualWidth;
+			return boy.walkTo(1500,proportionX);})
+			.then(function(){boy.resetOriginal();})
+			.then(function(){setTimeout(
+			function(){
+				girl.rotate();
+				boy.rotate(function(){
+					logo.run();});},1000
+			);});
+
+		/*boy.walkTo(2000,0.5)
+		.then(function(){boy.stopWalk();})
+		.then(function(){return openDoor();})
+		.then(function(){lamp.bright();})
+		.then(function(){return boy.toShop(2000);})
+		.then(function(){return boy.takeFlower();})
+		.then(function(){bird.fly();})
+		.then(function(){boy.outShop(2000);})
+		.then(function(){return shutDoor();})
+		.then(function(){lamp.dark();});*/
+		}
+	);
+	}
+	)
+	
+
+</script>
+</body>
+</html>
